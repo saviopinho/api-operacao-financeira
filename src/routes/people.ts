@@ -1,7 +1,9 @@
-const validateDocument = require('../middleware/complianceHandler');
-const controller = require('../controllers/people');
-const router = require('express').Router();
+import compHandler from '../middleware/ComplianceHandler';
+import peopleController from '../controllers/PeopleController';
+import { Router } from 'express';
 
-router.post('/', validateDocument, controller.createOne);
+const router = Router();
 
-module.exports = router;
+router.post('/', compHandler.validateDocument, peopleController.createOne);
+
+export default router;

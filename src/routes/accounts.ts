@@ -1,28 +1,51 @@
-const verifyToken = require('../middleware/AuthenticationHandler');
-const { paginatedResult } = require('../middleware/PaginationHandler');
-const accounts = require('../controllers/accounts');
-const cards = require('../controllers/cards');
-const trans = require('../controllers/transactions');
-const router = require('express').Router();
+import transactionsController from '../controllers/TransactionsController';
+import cardsController from '../controllers/CardsController';
+import accounts from '../controllers/AccountsController';
+import authHandler from '../middleware/AuthenticationHandler';
+import paginatedResult from '../middleware/PaginationHandler';
+
+import { Router } from 'express';
+
+const router = Router();
 
 router
-    .get('/', verifyToken, accounts.fetchAll)
-    .post('/', verifyToken, accounts.createOne)
-    .get('/:accountId/cards', verifyToken, cards.fetchAccountCards)
-    .post('/:accountId/cards', verifyToken, cards.createOne)
-    .post('/:accountId/transactions', verifyToken, trans.createOne)
+    .get('/', authHandler.verifyToken, accounts.fetchAll)
+    .post('/', authHandler.verifyToken, accounts.createOne)
+    .get(
+        '/:accountId/cards',
+        authHandler.verifyToken,
+        cardsController.fetchAccountCards
+    )
+    .post(
+        '/:accountId/cards',
+        authHandler.verifyToken,
+        cardsController.createOne
+    )
+    .post(
+        '/:accountId/transactions',
+        authHandler.verifyToken,
+        transactionsController.createOne
+    )
     .get(
         '/:accountId/transactions',
-        verifyToken,
-        trans.fetchAll,
-        paginatedResult
+        authHandler.verifyToken,
+        transactionsController.fetchAll,
+        paginatedResult.paginatedResult
     )
-    .post('/:accountId/transactions/internal', verifyToken, trans.execTransfer)
-    .get('/:accountId/balance', verifyToken, trans.fetchBalance)
+    .post(
+        '/:accountId/transactions/internal',
+        authHandler.verifyToken,
+        transactionsController.execTransfer
+    )
+    .get(
+        '/:accountId/balance',
+        authHandler.verifyToken,
+        transactionsController.fetchBalance
+    )
     .post(
         '/:accountId/transactions/:transactionId/revert',
-        verifyToken,
-        trans.execRevert
+        authHandler.verifyToken,
+        transactionsController.execRevert
     );
 
-module.exports = router;
+export default router;

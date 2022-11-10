@@ -1,13 +1,18 @@
-const express = require('express');
-const app = express();
-const errorMiddleware = require('./middleware/ErrorHandler');
+import 'express-async-errors';
+import { Request, Response, NextFunction } from 'express';
+import express from 'express';
+import errorHandler from './middleware/ErrorHandler';
+import people from './routes/people';
+import login from './routes/login';
+import accounts from './routes/accounts';
+import cards from './routes/cards';
 
-require('express-async-errors');
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.header(
@@ -17,10 +22,10 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/people', require('./routes/people'));
-app.use('/login', require('./routes/login'));
-app.use('/accounts', require('./routes/accounts'));
-app.use('/cards', require('./routes/cards'));
-app.use(errorMiddleware);
+app.use('/people', people);
+// app.use('/login', login);
+// app.use('/accounts', accounts);
+// app.use('/cards', cards);
+// app.use(errorHandler.errorMiddleware);
 
-module.exports = app;
+export default app;

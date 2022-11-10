@@ -1,5 +1,7 @@
-const onlyNumbers = (string) => {
-    return string.replace(/\D/g, '');
-};
+class Utils {
+    static onlyNumbers = (value: string) => {
+        return value.replace(/\D/g, '');
+    };
+}
 
-module.exports = { onlyNumbers };
+export default Utils;

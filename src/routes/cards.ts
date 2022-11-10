@@ -1,8 +1,15 @@
-const verifyToken = require('../middleware/AuthenticationHandler');
-const cards = require('../controllers/cards');
-const router = require('express').Router();
-const { paginatedResult } = require('../middleware/PaginationHandler');
+import authHandler from '../middleware/AuthenticationHandler';
+import cardsController from '../controllers/CardsController';
+import paginateHandler from '../middleware/PaginationHandler';
+import { Router } from 'express';
 
-router.get('/', verifyToken, cards.getPeopleCards, paginatedResult);
+const router = Router();
 
-module.exports = router;
+router.get(
+    '/',
+    authHandler.verifyToken,
+    cardsController.getPeopleCards,
+    paginateHandler.paginatedResult
+);
+
+export default router;

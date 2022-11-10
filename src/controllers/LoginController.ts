@@ -1,9 +1,15 @@
-const jwt = require('jsonwebtoken');
-const { people } = require('../../models');
-const bcrypt = require('bcrypt');
-const { BadRequestError, UnauthorizeError } = require('../helper/ApiError');
+import { Request, Response, NextFunction } from 'express';
+import bcrypt from 'bcrypt';
+import { BadRequestError, UnauthorizeError } from '../helper/ApiError';
 
-exports.login = async (req, res, next) => {
+import jwt from 'jsonwebtoken';
+import { people } from '../../models';
+
+export const login = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     const { document, password } = req.body;
 
     if (!(document && password)) {

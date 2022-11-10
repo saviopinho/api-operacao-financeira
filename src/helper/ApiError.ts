@@ -1,58 +1,50 @@
-class ApiError extends Error {
-    constructor(message, statusCode) {
+export class ApiError extends Error {
+    public readonly statusCode: number;
+
+    constructor(message: string, statusCode: number) {
         super(message);
         this.statusCode = statusCode;
     }
 }
 
-class BadRequestError extends ApiError {
-    constructor(message) {
+export class BadRequestError extends ApiError {
+    constructor(message: string) {
         super(message, 400);
     }
 }
 
-class UnauthorizeError extends ApiError {
-    constructor(message) {
+export class UnauthorizeError extends ApiError {
+    constructor(message: string) {
         super(message, 401);
     }
 }
 
-class ForbiddenError extends ApiError {
-    constructor(message) {
+export class ForbiddenError extends ApiError {
+    constructor(message: string) {
         super(message, 403);
     }
 }
 
-class NotFoundError extends ApiError {
-    constructor(message) {
+export class NotFoundError extends ApiError {
+    constructor(message: string) {
         super(message, 404);
     }
 }
 
-class ConflictError extends ApiError {
-    constructor(message) {
+export class ConflictError extends ApiError {
+    constructor(message: string) {
         super(message, 409);
     }
 }
 
-class BadGatewayError extends ApiError {
-    constructor(message) {
+export class BadGatewayError extends ApiError {
+    constructor(message: string) {
         super(message, 502);
     }
 }
 
-class UnavailableServiceError extends ApiError {
-    constructor(message) {
+export class UnavailableServiceError extends ApiError {
+    constructor(message: string) {
         super(message, 503);
     }
 }
-
-module.exports = {
-    BadRequestError,
-    NotFoundError,
-    UnauthorizeError,
-    ConflictError,
-    BadGatewayError,
-    UnavailableServiceError,
-    ForbiddenError,
-};
