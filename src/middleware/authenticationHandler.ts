@@ -11,13 +11,15 @@ interface decodedObject {
 }
 class AuthenticationHandler {
     verifyToken = async (req: Request, res: Response, next: NextFunction) => {
-        const token = req.headers.authorization?.split(' ')[1];
+        const { authorization } = req.headers;
 
-        if (!token) {
+        if (!authorization) {
             throw new ForbiddenError('A token is required for authentication');
         }
 
         let document = '';
+
+        const token = authorization.split(' ')[1];
 
         try {
             const decode = jwt.verify(

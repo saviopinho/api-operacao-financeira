@@ -19,7 +19,7 @@ export const login = async (
     const _people = await people.findOne({ where: { document } });
 
     if (_people && (await bcrypt.compare(password, _people.password))) {
-        const token = jwt.sign({ document }, process.env.API_KEY, {
+        const token = jwt.sign({ document }, process.env.API_KEY ?? '', {
             expiresIn: '24h',
         });
 

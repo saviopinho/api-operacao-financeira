@@ -1,5 +1,5 @@
-// const supertest = require('supertest');
-// const app = require('../server');
+import supertest from 'supertest';
+import app from '../server';
 
 // exports.loginRoute = describe('Login Route', () => {
 //     let validLoginResponse, invalidLoginResponse;
