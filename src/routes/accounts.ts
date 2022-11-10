@@ -25,27 +25,27 @@ router
         '/:accountId/transactions',
         authHandler.verifyToken,
         transactionsController.createOne
+    )
+    .get(
+        '/:accountId/transactions',
+        authHandler.verifyToken,
+        transactionsController.fetchAll,
+        paginatedResult.paginatedResult
+    )
+    .post(
+        '/:accountId/transactions/internal',
+        authHandler.verifyToken,
+        transactionsController.execTransfer
+    )
+    .get(
+        '/:accountId/balance',
+        authHandler.verifyToken,
+        transactionsController.fetchBalance
+    )
+    .post(
+        '/:accountId/transactions/:transactionId/revert',
+        authHandler.verifyToken,
+        transactionsController.execRevert
     );
-// .get(
-//     '/:accountId/transactions',
-//     authHandler.verifyToken,
-//     transactionsController.fetchAll,
-//     paginatedResult.paginatedResult
-// )
-// .post(
-//     '/:accountId/transactions/internal',
-//     authHandler.verifyToken,
-//     transactionsController.execTransfer
-// )
-// .get(
-//     '/:accountId/balance',
-//     authHandler.verifyToken,
-//     transactionsController.fetchBalance
-// )
-// .post(
-//     '/:accountId/transactions/:transactionId/revert',
-//     authHandler.verifyToken,
-//     transactionsController.execRevert
-// );
 
 export default router;

@@ -2,18 +2,9 @@ import { v4 as uuid } from 'uuid';
 import { BadRequestError, UnauthorizeError } from '../helper/ApiError';
 import { Request, Response, NextFunction } from 'express';
 import { transactionRepo } from '../repositories/transactionRepository';
+import Utils from '../helper/Utils';
 
 class TransactionsController {
-    getBalance = (list: any) => {
-        let balance = 0.0;
-
-        for (const item of list) {
-            balance = balance + parseFloat(item.value);
-        }
-
-        return balance;
-    };
-
     async createOne(req: Request, res: Response, next: NextFunction) {
         const { accountId } = req.params;
         const { value, description } = req.body;
@@ -26,10 +17,11 @@ class TransactionsController {
             accountId,
         });
 
-        const formatedValue = parseFloat(parseFloat(value).toFixed(2));
-        const balance = this.getBalance(transactionList);
+        const balance = Utils.getBalance(transactionList);
 
-        if (balance + value < 0) {
+        console.log('balance:', balance);
+
+        if (Number(balance) + Number(value) < 0) {
             throw new UnauthorizeError(
                 'Insufficient funds for that transaction'
             );
@@ -42,14 +34,15 @@ class TransactionsController {
             accountId,
         };
 
-        const transaction = transactionRepo.create(transactionData);
+        const newTransaction = transactionRepo.create(transactionData);
+        await transactionRepo.save(transactionData);
 
         const responseData = {
-            id: transaction.id,
-            value: formatedValue,
-            description: transaction.description,
-            createdAt: transaction.createdAt,
-            updatedAt: transaction.updatedAt,
+            id: newTransaction.id,
+            value: newTransaction.value,
+            description: newTransaction.description,
+            createdAt: newTransaction.createdAt,
+            updatedAt: newTransaction.updatedAt,
         };
 
         res.status(201).json(responseData);
@@ -82,7 +75,7 @@ class TransactionsController {
         const { accountId } = req.params;
         const transactionList = await transactionRepo.findBy({ accountId });
 
-        const balance = this.getBalance(transactionList);
+        const balance = Utils.getBalance(transactionList);
 
         return res
             .status(200)
@@ -101,9 +94,9 @@ class TransactionsController {
             accountId,
         });
 
-        const balance = this.getBalance(transactionList);
+        const balance = Utils.getBalance(transactionList);
 
-        if (balance - value < 0) {
+        if (Number(balance) - Number(value) < 0) {
             throw new UnauthorizeError('Insufficient funds for transfer');
         }
 
@@ -143,10 +136,11 @@ class TransactionsController {
                 'The same transaction cannot be reversed more than once'
             );
         }
-        const balance = this.getBalance(transactionList);
+
+        const balance = Utils.getBalance(transactionList);
         const reversedValue = -foundTransaction!.value;
 
-        if (balance + reversedValue < 0) {
+        if (Number(balance) + Number(reversedValue) < 0) {
             throw new UnauthorizeError('Negative balance is not allowed');
         }
 
