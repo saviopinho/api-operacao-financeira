@@ -43,7 +43,15 @@ export const peopleRoute = describe('People Route', () => {
             password: '12345',
         });
 
+        // const peopleRepo = dataSource.getRepository(People);
+        // console.log(
+        //     'peopleRepo:',
+        //     await peopleRepo.findOneBy({ document: '03758100305' })
+        // );
+
         expect(response.statusCode).toBe(201);
+        expect(response.body).toHaveProperty('id');
+        expect(response.body).toHaveProperty('name');
     });
 
     // it('deletou 2', async () => {

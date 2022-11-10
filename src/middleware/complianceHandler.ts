@@ -1,20 +1,13 @@
 import 'dotenv/config';
 import { Request, Response, NextFunction } from 'express';
-
 import {
     BadRequestError,
     BadGatewayError,
     UnavailableServiceError,
     UnauthorizeError,
 } from '../helper/ApiError';
-
 import Utils from '../helper/Utils';
-
-const axios = require('axios');
-const credentials = {
-    authEmail: process.env.COMPLIANCE_EMAIL,
-    authPassword: process.env.COMPLIANCE_PASSWORD,
-};
+import axios from 'axios';
 
 class ComplianceHandler {
     _checkDocumentType = (document: string) => {
@@ -41,8 +34,8 @@ class ComplianceHandler {
         }
 
         const authReqBody = {
-            email: credentials.authEmail,
-            password: credentials.authPassword,
+            email: process.env.COMPLIANCE_EMAIL,
+            password: process.env.COMPLIANCE_PASSWORD,
         };
 
         const authCode = await axios

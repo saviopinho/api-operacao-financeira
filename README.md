@@ -6,12 +6,7 @@
 
 > ## **RestAPI Sistema Bancário em NodeJS, TypeScript, ExpressJS, PostgresSQL,**
 >
-> | col1 | col2 | col3 |
-> | ---- | ---- | ---- |
-> |      |      |      |
-> |      |      |      |
->
-> ##  **TypeORM e Docker.**
+> ## **TypeORM e Docker.**
 >
 > Sávio Pinho Nunes - saviopinhonunes@gmail.com - (85) 997191702.
 
@@ -21,7 +16,6 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
 * Ter o Docker instalado e rodando para que seja criada a base de dados dessa aplicação.
 * NodeJS Instalado na máquina.
-
 
 ## 🚀 Instalação
 
