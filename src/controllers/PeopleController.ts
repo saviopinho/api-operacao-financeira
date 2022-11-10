@@ -1,9 +1,9 @@
-import { ConflictError } from '../helper/ApiError';
 import { Request, Response, NextFunction } from 'express';
+import { ConflictError } from '../helper/ApiError';
+import { peopleRepo } from '../data/repositories/peopleRepository';
 import { v4 as uuid } from 'uuid';
 import bcrypt from 'bcrypt';
 import Utils from '../helper/Utils';
-import { peopleRepo } from '../data/repositories/peopleRepository';
 
 class PeopleController {
     async createOne(req: Request, res: Response, next: NextFunction) {

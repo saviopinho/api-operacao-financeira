@@ -1,8 +1,8 @@
-import { v4 as uuid } from 'uuid';
-import { BadRequestError, UnauthorizeError } from '../helper/ApiError';
 import { Request, Response, NextFunction } from 'express';
+import { BadRequestError, UnauthorizeError } from '../helper/ApiError';
 import { transactionRepo } from '../data/repositories/transactionRepository';
 import Utils from '../helper/Utils';
+import { v4 as uuid } from 'uuid';
 
 class TransactionsController {
     async createOne(req: Request, res: Response, next: NextFunction) {
@@ -56,7 +56,7 @@ class TransactionsController {
         const responseData = transactionList.map((el: any) => {
             return {
                 id: el.id,
-                value: parseFloat(el.value),
+                value: Number(el.value),
                 description: el.description,
                 createdAt: el.createdAt,
                 updatedAt: el.updatedAt,
@@ -72,12 +72,9 @@ class TransactionsController {
     async fetchBalance(req: Request, res: Response, next: NextFunction) {
         const { accountId } = req.params;
         const transactionList = await transactionRepo.findBy({ accountId });
-
         const balance = Utils.getBalance(transactionList);
 
-        return res
-            .status(200)
-            .send({ balance: parseFloat(balance.toFixed(2)) });
+        return res.status(200).send({ balance: Number(balance) });
     }
 
     async execTransfer(req: Request, res: Response, next: NextFunction) {

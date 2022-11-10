@@ -4,16 +4,24 @@
 
 ![exemplo imagem](https://vagas.byintera.com/wp-content/uploads/2022/08/cubos_newLogo.png)
 
-> ## **RestAPI Sistema Bancário em TypeScript, PostgresSQL com migrations em TypeORM e Docker.**
+> ## **RestAPI Sistema Bancário em NodeJS, TypeScript, ExpressJS, PostgresSQL,**
 >
-> Sávio Pinho Nunes - saviopinhonunes@gmail.com - (85) 997191702
+> | col1 | col2 | col3 |
+> | ---- | ---- | ---- |
+> |      |      |      |
+> |      |      |      |
+>
+> ##  **TypeORM e Docker.**
+>
+> Sávio Pinho Nunes - saviopinhonunes@gmail.com - (85) 997191702.
 
 ## 💻 Pré-requisitos
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
-* Ter o Docker instalado e rodando para que seja criada a base de dados desse teste.
+* Ter o Docker instalado e rodando para que seja criada a base de dados dessa aplicação.
 * NodeJS Instalado na máquina.
+
 
 ## 🚀 Instalação
 
@@ -22,12 +30,6 @@ Para instalar o <nome_do_projeto>, siga estas etapas:
 ```
 git clone git@github.com:saviopinho/Node-API-Cubos-Typescript.git
 
-```
-
-Windows:
-
-```
-<comando_de_instalação>
 ```
 
 ## ☕ Usando `<API Cubos>`

@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
 import { Request, Response, NextFunction } from 'express';
 import { BadRequestError, UnauthorizeError } from '../helper/ApiError';
 import { peopleRepo } from '../data/repositories/peopleRepository';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 export const login = async (
     req: Request,
