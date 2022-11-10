@@ -5,8 +5,8 @@
     "main": "index.ts",
     "scripts": {
         "test": "jest --runInBand --detectOpenHandles --forceExit --verbose",
-        "migration:generate": "npx typeorm-ts-node-commonjs -d ./src/data-source.ts migration:generate ./src/migrations/default",
-        "migration:run": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run",
+        "migration:generate": "npx typeorm-ts-node-commonjs -d ./src/data/data-source.ts migration:generate ./src/data/migrations/default",
+        "migration:run": "typeorm-ts-node-commonjs -d ./src/data/data-source.ts migration:run",
         "migrate": "npm run migration:run",
         "start": "ts-node index.ts",
         "dev": "nodemon --exec ts-node index.ts",
@@ -16,10 +16,8 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@types/cors": "^2.8.12",
         "axios": "^1.1.3",
         "bcrypt": "^5.1.0",
-        "cors": "^2.8.5",
         "dotenv": "^16.0.3",
         "express": "^4.17.1",
         "express-async-errors": "^3.1.1",

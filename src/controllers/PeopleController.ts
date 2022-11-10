@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import { v4 as uuid } from 'uuid';
 import bcrypt from 'bcrypt';
 import Utils from '../helper/Utils';
-import { peopleRepo } from '../repositories/peopleRepository';
+import { peopleRepo } from '../data/repositories/peopleRepository';
 
 class PeopleController {
     async createOne(req: Request, res: Response, next: NextFunction) {

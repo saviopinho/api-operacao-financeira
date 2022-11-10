@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { Request, Response, NextFunction } from 'express';
 import { BadRequestError, UnauthorizeError } from '../helper/ApiError';
-import { peopleRepo } from '../repositories/peopleRepository';
+import { peopleRepo } from '../data/repositories/peopleRepository';
 
 export const login = async (
     req: Request,

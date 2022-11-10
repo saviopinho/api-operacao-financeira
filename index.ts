@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import app from './src/server';
-import dataSource from './src/data-source';
+import dataSource from './src/data/data-source';
 
 const port = process.env.EXTERNAL_PORT || 3001;
 

@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { BadRequestError, UnauthorizeError } from '../helper/ApiError';
 import { Request, Response, NextFunction } from 'express';
-import { transactionRepo } from '../repositories/transactionRepository';
+import { transactionRepo } from '../data/repositories/transactionRepository';
 import Utils from '../helper/Utils';
 
 class TransactionsController {
@@ -18,8 +18,6 @@ class TransactionsController {
         });
 
         const balance = Utils.getBalance(transactionList);
-
-        console.log('balance:', balance);
 
         if (Number(balance) + Number(value) < 0) {
             throw new UnauthorizeError(

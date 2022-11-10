@@ -5,7 +5,7 @@ import {
     ForbiddenError,
     NotFoundError,
 } from '../helper/ApiError';
-import { peopleRepo } from '../repositories/peopleRepository';
+import { peopleRepo } from '../data/repositories/peopleRepository';
 
 interface decodedObject {
     document: string;

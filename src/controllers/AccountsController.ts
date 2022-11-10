@@ -1,8 +1,8 @@
 import { v4 as uuid } from 'uuid';
 import { BadRequestError, ConflictError } from '../helper/ApiError';
 import { Request, Response, NextFunction } from 'express';
-import { accountRepo } from '../repositories/accountRepository';
-import { Account } from '../entities/Account';
+import { accountRepo } from '../data/repositories/accountRepository';
+import { Account } from '../data/entities/Account';
 
 class AccountsController {
     async fetchAll(req: Request, res: Response, next: NextFunction) {

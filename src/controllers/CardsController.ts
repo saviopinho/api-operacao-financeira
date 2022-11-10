@@ -5,8 +5,8 @@ import {
     UnauthorizeError,
 } from '../helper/ApiError';
 import { Request, Response, NextFunction } from 'express';
-import { cardRepo } from '../repositories/cardRepository';
-import { Card } from '../entities/Card';
+import { cardRepo } from '../data/repositories/cardRepository';
+import { Card } from '../data/entities/Card';
 
 class CardsController {
     async fetchAccountCards(req: Request, res: Response, next: NextFunction) {
