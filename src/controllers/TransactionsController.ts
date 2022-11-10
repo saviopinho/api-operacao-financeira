@@ -3,6 +3,7 @@ import { BadRequestError, UnauthorizeError } from '../helper/ApiError';
 import { transactionRepo } from '../data/repositories/transactionRepository';
 import Utils from '../helper/Utils';
 import { v4 as uuid } from 'uuid';
+import { accountRepo } from '../data/repositories/accountRepository';
 
 class TransactionsController {
     async createOne(req: Request, res: Response, next: NextFunction) {
@@ -31,6 +32,14 @@ class TransactionsController {
             description,
             accountId,
         };
+
+        const foundAccount = await accountRepo.findOneBy({ id: accountId });
+
+        if (!foundAccount) {
+            throw new UnauthorizeError(
+                'Account ID does not exist in Account table.'
+            );
+        }
 
         const newTransaction = transactionRepo.create(transactionData);
         await transactionRepo.save(transactionData);
@@ -74,7 +83,9 @@ class TransactionsController {
         const transactionList = await transactionRepo.findBy({ accountId });
         const balance = Utils.getBalance(transactionList);
 
-        return res.status(200).send({ balance: Number(balance) });
+        return res
+            .status(200)
+            .send({ balance: parseFloat(balance.toFixed(2)) });
     }
 
     async execTransfer(req: Request, res: Response, next: NextFunction) {
@@ -109,10 +120,13 @@ class TransactionsController {
             accountId: receiverAccountId,
         };
 
-        await transactionRepo.create(senderData);
-        const transferTransaction = await transactionRepo.create(receiverData);
+        const newSenderTransaction = transactionRepo.create(senderData);
+        const newReceiverTransaction = transactionRepo.create(receiverData);
 
-        res.status(201).send(transferTransaction);
+        await transactionRepo.save(newSenderTransaction);
+        await transactionRepo.save(newReceiverTransaction);
+
+        res.status(201).send(newReceiverTransaction);
     }
 
     async execRevert(req: Request, res: Response, next: NextFunction) {
@@ -143,22 +157,23 @@ class TransactionsController {
 
         const revertData = {
             id: uuid(),
-            value: reversedValue,
+            value: parseFloat(reversedValue.toFixed(2)),
             description: 'Refund of improper transaction',
             accountId,
             reversedAt: revertDate,
         };
 
         await transactionRepo.update(
-            { reversedAt: revertDate },
-            { id: transactionId }
+            { id: transactionId },
+            { reversedAt: revertDate }
         );
 
-        const newTransaction = await transactionRepo.create(revertData);
+        const newTransaction = transactionRepo.create(revertData);
+        await transactionRepo.save(newTransaction);
 
         const revertResponseData = {
             id: newTransaction.id,
-            value: foundTransaction!.value,
+            value: Number(foundTransaction!.value),
             description: newTransaction.description,
             createdAt: newTransaction.createdAt,
             updatedAt: newTransaction.updatedAt,

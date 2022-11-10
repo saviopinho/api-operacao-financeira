@@ -7,9 +7,15 @@ class PaginationHandler {
         const itemsPerPage = (req.query.itemsPerPage || 10) as number;
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = currentPage * itemsPerPage;
+        const sortedDesc = list.sort(
+            (
+                objA: { updatedAt: { getTime: () => number } },
+                objB: { updatedAt: { getTime: () => number } }
+            ) => objB.updatedAt.getTime() - objA.updatedAt.getTime()
+        );
 
         return res.status(200).send({
-            [title]: list.slice(startIndex, endIndex),
+            [title]: sortedDesc.slice(startIndex, endIndex),
             pagination: { itemsPerPage, currentPage },
         });
     }
