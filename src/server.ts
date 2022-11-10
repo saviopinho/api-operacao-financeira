@@ -7,13 +7,11 @@ import login from './routes/login';
 import accounts from './routes/accounts';
 import cards from './routes/cards';
 import morgan from 'morgan';
-import cors from 'cors';
 
 const app = express();
 
 app.use(express.json());
 app.use(morgan('tiny'));
-app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
