@@ -23,7 +23,7 @@ export class Transaction {
     @Column({ nullable: false, type: 'text' })
     accountId: string;
 
-    @Column({ type: 'timestamptz' })
+    @Column({ nullable: true, type: 'timestamptz' })
     reversedAt: Date;
 
     @CreateDateColumn({

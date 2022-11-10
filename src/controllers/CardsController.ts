@@ -1,5 +1,9 @@
 import { v4 as uuid } from 'uuid';
-import { BadRequestError, ConflictError } from '../helper/ApiError';
+import {
+    BadRequestError,
+    ConflictError,
+    UnauthorizeError,
+} from '../helper/ApiError';
 import { Request, Response, NextFunction } from 'express';
 import { cardRepo } from '../repositories/cardRepository';
 import { Card } from '../entities/Card';
@@ -108,6 +112,7 @@ class CardsController {
         };
 
         const newCard = cardRepo.create(card_data);
+
         await cardRepo.save(newCard);
 
         const responseData = {

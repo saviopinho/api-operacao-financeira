@@ -20,12 +20,12 @@ router
         '/:accountId/cards',
         authHandler.verifyToken,
         cardsController.createOne
+    )
+    .post(
+        '/:accountId/transactions',
+        authHandler.verifyToken,
+        transactionsController.createOne
     );
-// .post(
-//     '/:accountId/transactions',
-//     authHandler.verifyToken,
-//     transactionsController.createOne
-// )
 // .get(
 //     '/:accountId/transactions',
 //     authHandler.verifyToken,
