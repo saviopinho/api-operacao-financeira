@@ -1,10 +1,10 @@
-import dotenv from 'dotenv/config';
+import 'dotenv/config';
 import app from './src/server';
-import db from './src/db/data/dataSource';
+import dataSource from './src/data-source';
 
 const port = process.env.EXTERNAL_PORT || 3001;
 
-db.initialize().then(() => {
+dataSource.initialize().then(() => {
     return app.listen(port, () => {
         console.log('connected to port:', port);
     });

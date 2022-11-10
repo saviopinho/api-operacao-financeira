@@ -1,20 +1,18 @@
 import { v4 as uuid } from 'uuid';
 import { BadRequestError, ConflictError } from '../helper/ApiError';
 import { Request, Response, NextFunction } from 'express';
+import { cardRepo } from '../repositories/cardRepository';
+import { Card } from '../entities/Card';
 
 class CardsController {
-    fetchAccountCards = async (
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ) => {
-        const document = req.body.document;
+    async fetchAccountCards(req: Request, res: Response, next: NextFunction) {
+        const { document } = req.body;
         const { accountId } = req.params;
-        const foundCards = await cards.findAll({
+        const foundCards = await cardRepo.find({
             where: { document, accountId },
         });
 
-        const response_data = foundCards.map((el: any) => {
+        const responseData = foundCards.map((el: Card) => {
             return {
                 id: el.id,
                 type: el.type,
@@ -25,19 +23,15 @@ class CardsController {
             };
         });
 
-        return res.status(200).send(response_data);
-    };
+        return res.status(200).send(responseData);
+    }
 
-    getPeopleCards = async (
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ) => {
+    async getPeopleCards(req: Request, res: Response, next: NextFunction) {
         try {
-            const document = req.body.document;
-            const foundCards = await cards.findAll({ where: { document } });
+            const { document } = req.body;
+            const foundCards = await cardRepo.find({ where: { document } });
 
-            const response_data = foundCards.map((el) => {
+            const responseData = foundCards.map((el) => {
                 return {
                     id: el.id,
                     type: el.type,
@@ -48,17 +42,17 @@ class CardsController {
                 };
             });
 
-            res.list = response_data;
-            res.title = 'cards';
+            req.body.list = responseData;
+            req.body.title = 'cards';
 
             next();
         } catch (error) {
             return res.status(500).json(error);
         }
-    };
+    }
 
-    createOne = async (req: Request, res: Response, next: NextFunction) => {
-        const document = req.body.document;
+    async createOne(req: Request, res: Response, next: NextFunction) {
+        const { document } = req.body;
         const { accountId } = req.params;
         const { type, number, cvv } = req.body;
         const lastNumbers = number.slice(-4);
@@ -83,8 +77,14 @@ class CardsController {
             );
         }
 
+        const foundCard = await cardRepo.findOneBy({ number });
+
+        if (foundCard) {
+            throw new ConflictError('Card already created');
+        }
+
         if (type == 'physical') {
-            const physicalCards = await cards.count({
+            const physicalCards = await cardRepo.count({
                 where: {
                     accountId,
                     type: 'physical',
@@ -98,14 +98,6 @@ class CardsController {
             }
         }
 
-        const foundCard = await cards.findOne({
-            where: { number },
-        });
-
-        if (foundCard) {
-            throw new ConflictError('Card already created');
-        }
-
         const card_data = {
             id: uuid(),
             type,
@@ -115,19 +107,20 @@ class CardsController {
             document,
         };
 
-        const foundCards = await cards.create(card_data);
+        const newCard = cardRepo.create(card_data);
+        await cardRepo.save(newCard);
 
-        const response_data = {
-            id: foundCards.id,
-            type: foundCards.type,
+        const responseData = {
+            id: newCard.id,
+            type: newCard.type,
             number: lastNumbers,
-            cvv: foundCards.cvv,
-            createdAt: foundCards.createdAt,
-            updatedAt: foundCards.updatedAt,
+            cvv: newCard.cvv,
+            createdAt: newCard.createdAt,
+            updatedAt: newCard.updatedAt,
         };
 
-        res.status(201).json(response_data);
-    };
+        res.status(201).json(responseData);
+    }
 }
 
 export default new CardsController();

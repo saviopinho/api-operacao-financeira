@@ -1,9 +1,8 @@
-import { Request, Response, NextFunction } from 'express';
-import bcrypt from 'bcrypt';
-import { BadRequestError, UnauthorizeError } from '../helper/ApiError';
-
 import jwt from 'jsonwebtoken';
-import { people } from '../../models';
+import bcrypt from 'bcrypt';
+import { Request, Response, NextFunction } from 'express';
+import { BadRequestError, UnauthorizeError } from '../helper/ApiError';
+import { peopleRepo } from '../repositories/peopleRepository';
 
 export const login = async (
     req: Request,
@@ -16,14 +15,15 @@ export const login = async (
         throw new BadRequestError('All input is required');
     }
 
-    const _people = await people.findOne({ where: { document } });
+    const foundPeople = await peopleRepo.findOneBy({ document });
 
-    if (_people && (await bcrypt.compare(password, _people.password))) {
+    if (
+        foundPeople &&
+        (await bcrypt.compare(password, foundPeople!.password))
+    ) {
         const token = jwt.sign({ document }, process.env.API_KEY ?? '', {
             expiresIn: '24h',
         });
-
-        _people.token = token;
 
         res.status(200).json({ token: `Bearer ${token}` });
     } else {

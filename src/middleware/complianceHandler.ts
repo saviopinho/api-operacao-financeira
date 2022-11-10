@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import 'dotenv/config';
 
 import {
     BadRequestError,

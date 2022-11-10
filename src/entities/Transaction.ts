@@ -4,41 +4,42 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
-    OneToMany,
+    JoinColumn,
+    ManyToOne,
 } from 'typeorm';
 import { Account } from './Account';
-import { Card } from './Card';
 
-@Entity('people')
-export class People {
+@Entity('transactions')
+export class Transaction {
     @PrimaryColumn({ nullable: false, type: 'text' })
     id: string;
 
-    @Column({ nullable: false, type: 'text' })
-    name: string;
+    @Column({ type: 'decimal', precision: 12, scale: 2 })
+    value: number;
 
     @Column({ nullable: false, type: 'text' })
-    document: string;
+    description: string;
 
     @Column({ nullable: false, type: 'text' })
-    password: string;
+    accountId: string;
+
+    @Column({ type: 'timestamptz' })
+    reversedAt: Date;
 
     @CreateDateColumn({
-        type: 'timestamp',
+        type: 'timestamptz',
         default: () => 'CURRENT_TIMESTAMP(6)',
     })
     createdAt: Date;
 
     @UpdateDateColumn({
-        type: 'timestamp',
+        type: 'timestamptz',
         default: () => 'CURRENT_TIMESTAMP(6)',
         onUpdate: 'CURRENT_TIMESTAMP(6)',
     })
     updatedAt: Date;
 
-    @OneToMany(() => Account, (account) => account.people)
-    accounts: Account[];
-
-    @OneToMany(() => Card, (card) => card.people)
-    cards: Card[];
+    @ManyToOne(() => Account, (account) => account.transactions)
+    @JoinColumn({ name: 'accountId', referencedColumnName: 'id' })
+    account: Account;
 }

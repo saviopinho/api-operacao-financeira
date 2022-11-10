@@ -5,8 +5,12 @@
     "main": "index.ts",
     "scripts": {
         "test": "jest --runInBand --detectOpenHandles --forceExit --verbose",
+        "migration:generate": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:generate ./src/migrations/default",
+        "migration:run": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run",
+        "migrate": "npm run migration:run",
+        "start": "ts-node index.ts",
         "dev": "nodemon --exec ts-node index.ts",
-        "start": "ts-node index.ts"
+        "install": "docker compose down && docker compose up -d && npm run migrate"
     },
     "keywords": [],
     "author": "",

@@ -13,9 +13,10 @@
         "forceConsistentCasingInFileNames": true,
         "strict": true,
         "noImplicitAny": true,
-        "strictPropertyInitialization": false
+        "strictPropertyInitialization": false,
+        "rootDir": "./"
     },
-    "include": ["src/**/*"],
+    "include": ["src/**/*", "entities", "dataSource.ts"],
     "exclude": ["node_modules", "dist"],
     "ts-node": {
         "files": true

@@ -1,6 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { BadRequestError, UnauthorizeError } from '../helper/ApiError';
 import { Request, Response, NextFunction } from 'express';
+import { transactionRepo } from '../repositories/transactionRepository';
 
 class TransactionsController {
     getBalance = (list: any) => {
@@ -21,8 +22,8 @@ class TransactionsController {
             throw new BadRequestError('All input is required');
         }
 
-        const transactionList = await transactions.findAll({
-            where: { accountId },
+        const transactionList = await transactionRepo.findBy({
+            accountId,
         });
 
         const formatedValue = parseFloat(parseFloat(value).toFixed(2));
@@ -39,10 +40,9 @@ class TransactionsController {
             value,
             description,
             accountId,
-            reversedAt: null,
         };
 
-        const transaction = await transactions.create(transactionData);
+        const transaction = transactionRepo.create(transactionData);
 
         const responseData = {
             id: transaction.id,
@@ -58,7 +58,7 @@ class TransactionsController {
     async fetchAll(req: Request, res: Response, next: NextFunction) {
         const { accountId } = req.params;
 
-        const transactionList = await transactions.findAll({
+        const transactionList = await transactionRepo.find({
             where: { accountId },
         });
 
@@ -80,9 +80,7 @@ class TransactionsController {
 
     async fetchBalance(req: Request, res: Response, next: NextFunction) {
         const { accountId } = req.params;
-        const transactionList = await transactions.findAll({
-            where: { accountId },
-        });
+        const transactionList = await transactionRepo.findBy({ accountId });
 
         const balance = this.getBalance(transactionList);
 
@@ -99,8 +97,8 @@ class TransactionsController {
             throw new BadRequestError('All input is required');
         }
 
-        const transactionList = await transactions.findAll({
-            where: { accountId },
+        const transactionList = await transactionRepo.findBy({
+            accountId,
         });
 
         const balance = this.getBalance(transactionList);
@@ -123,8 +121,8 @@ class TransactionsController {
             accountId: receiverAccountId,
         };
 
-        await transactions.create(senderData);
-        const transferTransaction = await transactions.create(receiverData);
+        await transactionRepo.create(senderData);
+        const transferTransaction = await transactionRepo.create(receiverData);
 
         res.status(201).send(transferTransaction);
     }
@@ -132,22 +130,21 @@ class TransactionsController {
     async execRevert(req: Request, res: Response, next: NextFunction) {
         const { accountId, transactionId } = req.params;
 
-        const transactionList = await transactions.findAll({
-            where: { accountId },
+        const transactionList = await transactionRepo.findBy({
+            accountId,
         });
 
-        const foundTransaction = await transactions.findOne({
-            where: { id: transactionId },
+        const foundTransaction = await transactionRepo.findOneBy({
+            id: transactionId,
         });
 
-        if (foundTransaction.reversedAt) {
+        if (foundTransaction!.reversedAt) {
             throw new UnauthorizeError(
                 'The same transaction cannot be reversed more than once'
             );
         }
-
         const balance = this.getBalance(transactionList);
-        const reversedValue = parseFloat(-foundTransaction.value);
+        const reversedValue = -foundTransaction!.value;
 
         if (balance + reversedValue < 0) {
             throw new UnauthorizeError('Negative balance is not allowed');
@@ -163,16 +160,16 @@ class TransactionsController {
             reversedAt: revertDate,
         };
 
-        await transactions.update(
+        await transactionRepo.update(
             { reversedAt: revertDate },
-            { where: { id: transactionId } }
+            { id: transactionId }
         );
 
-        const newTransaction = await transactions.create(revertData);
+        const newTransaction = await transactionRepo.create(revertData);
 
         const revertResponseData = {
             id: newTransaction.id,
-            value: parseFloat(foundTransaction.value),
+            value: foundTransaction!.value,
             description: newTransaction.description,
             createdAt: newTransaction.createdAt,
             updatedAt: newTransaction.updatedAt,

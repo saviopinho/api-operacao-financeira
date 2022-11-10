@@ -5,41 +5,45 @@ import {
     ForbiddenError,
     NotFoundError,
 } from '../helper/ApiError';
+import { peopleRepo } from '../repositories/peopleRepository';
 
 interface decodedObject {
     document: string;
 }
+
 class AuthenticationHandler {
     verifyToken = async (req: Request, res: Response, next: NextFunction) => {
         const { authorization } = req.headers;
 
-        if (!authorization) {
+        const token = authorization!.split(' ')[1];
+
+        if (!token) {
             throw new ForbiddenError('A token is required for authentication');
         }
 
         let document = '';
 
-        const token = authorization.split(' ')[1];
-
         try {
-            const decode = jwt.verify(
+            const decoded = jwt.verify(
                 token,
-                process.env.API_KEY!
+                process.env.API_KEY ?? ''
             ) as decodedObject;
-            document = decode.document;
+
+            document = decoded.document;
         } catch (error) {
             throw new UnauthorizeError('Invalid Token');
         }
 
-        const _people = await db.people.findOne({ where: { document } });
+        const foundPeople = await peopleRepo.findOneBy({ document });
 
-        if (!_people) {
+        if (!foundPeople) {
             throw new NotFoundError(
                 'Invalid Token. Token belongs to an User who was not found'
             );
         }
 
         req.body.document = document;
+
         next();
     };
 }

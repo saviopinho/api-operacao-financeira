@@ -1,15 +1,17 @@
 import { v4 as uuid } from 'uuid';
 import { BadRequestError, ConflictError } from '../helper/ApiError';
 import { Request, Response, NextFunction } from 'express';
+import { accountRepo } from '../repositories/accountRepository';
+import { Account } from '../entities/Account';
 
 class AccountsController {
     async fetchAll(req: Request, res: Response, next: NextFunction) {
         try {
-            const document = req.body.document;
-            const foundAccounts = await accounts.findAll({
+            const { document } = req.body;
+            const foundAccounts = await accountRepo.find({
                 where: { document },
             });
-            const response_data = foundAccounts.map((el: any) => {
+            const responseData = foundAccounts.map((el: Account) => {
                 return {
                     id: el.id,
                     branch: el.branch,
@@ -19,15 +21,15 @@ class AccountsController {
                 };
             });
 
-            return res.status(200).send(response_data);
+            return res.status(200).send(responseData);
         } catch (error) {
             return res.status(500).json(error);
         }
     }
-    async createOne(req: Request, res: Response, next: NextFunction) {
-        const document = req.body.document;
-        const { branch, account } = req.body;
 
+    async createOne(req: Request, res: Response, next: NextFunction) {
+        const { document } = req.body;
+        const { branch, account } = req.body;
         const account_data = {
             id: uuid(),
             branch,
@@ -49,25 +51,24 @@ class AccountsController {
             );
         }
 
-        const found = await accounts.findOne({
-            where: { account },
-        });
+        const found = await accountRepo.findOneBy({ account });
 
         if (found) {
             throw new ConflictError('Account already created');
         }
 
-        const foundAccounts = await accounts.create(account_data);
+        const newAccount = accountRepo.create(account_data);
+        await accountRepo.save(newAccount);
 
-        const response_data = {
-            id: foundAccounts.id,
-            branch: foundAccounts.branch,
-            account: foundAccounts.account,
-            createdAt: foundAccounts.createdAt,
-            updatedAt: foundAccounts.updatedAt,
+        const responseData = {
+            id: newAccount.id,
+            branch: newAccount.branch,
+            account: newAccount.account,
+            createdAt: newAccount.createdAt,
+            updatedAt: newAccount.updatedAt,
         };
 
-        res.status(201).json(response_data);
+        res.status(201).json(responseData);
     }
 }
 

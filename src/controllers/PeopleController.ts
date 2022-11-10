@@ -3,10 +3,11 @@ import { Request, Response, NextFunction } from 'express';
 import { v4 as uuid } from 'uuid';
 import bcrypt from 'bcrypt';
 import Utils from '../helper/Utils';
+import { peopleRepo } from '../repositories/peopleRepository';
 
 class PeopleController {
     async createOne(req: Request, res: Response, next: NextFunction) {
-        const { name, document, password } = req.params;
+        const { name, document, password } = req.body;
         const encryptedPassword = await bcrypt.hash(password, 10);
         const formated_document = Utils.onlyNumbers(document);
 
@@ -17,22 +18,23 @@ class PeopleController {
             password: encryptedPassword,
         };
 
-        const found = await db.people.findOne({
-            where: { document: formated_document },
+        const found = await peopleRepo.findOneBy({
+            document: formated_document,
         });
 
         if (found) {
             throw new ConflictError('User already created');
         }
 
-        const _people = await db.people.create(people_data);
+        const newPeople = peopleRepo.create(people_data);
+        await peopleRepo.save(newPeople);
 
         return res.status(201).json({
-            id: _people.id,
-            name: _people.name,
-            document: _people.document,
-            createdAt: _people.createdAt,
-            updatedAt: _people.updatedAt,
+            id: newPeople.id,
+            name: newPeople.name,
+            document: newPeople.document,
+            createdAt: newPeople.createdAt,
+            updatedAt: newPeople.updatedAt,
         });
     }
 }

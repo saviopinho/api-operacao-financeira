@@ -27,13 +27,13 @@ export class Account {
     document: string;
 
     @CreateDateColumn({
-        type: 'timestamp',
+        type: 'timestamptz',
         default: () => 'CURRENT_TIMESTAMP(6)',
     })
     createdAt: Date;
 
     @UpdateDateColumn({
-        type: 'timestamp',
+        type: 'timestamptz',
         default: () => 'CURRENT_TIMESTAMP(6)',
         onUpdate: 'CURRENT_TIMESTAMP(6)',
     })
