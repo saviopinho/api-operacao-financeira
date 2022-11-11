@@ -1,7 +1,7 @@
 import request from 'supertest';
 import app from '../../src/server';
 
-export const peopleRoute = describe('People Route', () => {
+export const peopleRoute = describe('[Route: People]', () => {
     const cpfRequestData = {
         name: 'Usuario Teste da Silva',
         document: '56967915576',
