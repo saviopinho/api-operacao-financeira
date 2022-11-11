@@ -1,10 +1,10 @@
-# Nome do projeto
+# API de Operações Financeira - Teste Cubos Tecnologia 
 
 <!---Esses são exemplos. Veja https://shields.io para outras pessoas ou para personalizar este conjunto de escudos. Você pode querer incluir dependências, status do projeto e informações de licença aqui--->
 
 ![exemplo imagem](https://vagas.byintera.com/wp-content/uploads/2022/08/cubos_newLogo.png)
 
-> ## **API de Operações Financeiras desenvolvido em: NodeJS, TypeScript, ExpressJS, PostgresSQL, TypeORM e Docker.**
+> ## **Desenvolvido em: NodeJS, TypeScript, ExpressJS, PostgresSQL, TypeORM e Docker.**
 >
 > Contato: Sávio Pinho Nunes - saviopinhonunes@gmail.com - +55 85 997191702.
 
