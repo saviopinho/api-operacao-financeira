@@ -1,7 +1,7 @@
 import 'express-async-errors';
 import { Request, Response, NextFunction } from 'express';
 import express from 'express';
-import errorHandler from './middleware/ErrorHandler';
+import { errorMiddleware } from './middleware/errorHandler';
 import people from './routes/people';
 import login from './routes/login';
 import accounts from './routes/accounts';
@@ -26,6 +26,6 @@ app.use('/people', people);
 app.use('/login', login);
 app.use('/accounts', accounts);
 app.use('/cards', cards);
-app.use(errorHandler.errorMiddleware);
+app.use(errorMiddleware);
 
 export default app;
