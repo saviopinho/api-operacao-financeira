@@ -8,7 +8,7 @@
 >
 > Contato: Sávio Pinho Nunes - saviopinhonunes@gmail.com - +55 85 997191702.
 
-## Funcionalidades
+## ✅ Funcionalidades
 - Criar uma pessoa.
 - Autenticar uma pessoa.
 - Adicionar e listar cartões de uma conta.
