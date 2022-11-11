@@ -15,7 +15,7 @@
 - Adicionar e listar contas da pessoa.
 - Realizar e listar transações em uma conta.
 - Consultar o saldo de uma conta.
-- Realizer transfência interna entre contas.
+- Realizer transferência interna entre contas.
 - Reverter uma transação.
 
 ## 💻 Pré-requisitos
