@@ -52,6 +52,7 @@ npm run migration:run
 * Caso queira rodar o servidor e testar manualmente
 ```
 npm run start
+npm run dev
 ```
 * Caso queria rodar os testes de integração
 ```
