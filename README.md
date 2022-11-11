@@ -17,7 +17,7 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
 ## 🚀 Instalação
 
-Para instalar a API, siga estas etapas:
+Para instalar a o projeto da API, siga estas etapas:
 
 ### Clonar Projeto
 ```
@@ -53,6 +53,7 @@ npm run start
 npm run test
 ```
 
-## ☕ Usando `<API Cubos>`
+## ☕ Usando `<API Cubos>` e Observações
 
+* Caso o comando de executar as migrations nao funcione de primeira, fechar e abrir novamente o VSCode para recarregar os packages.
 * Usar a ferramenta de sua preferência para testar as rotas e os endpoints criados.
