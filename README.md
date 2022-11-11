@@ -41,12 +41,12 @@ npm run docker:compose
 
 ### Criar arquivo de migrations do TypeORM
 ```
-npm run migrate:generate
+npm run migration:generate
 ```
 
 ### Executar as migrations do TypeORM
 ```
-npm run migrate:run
+npm run migration:run
 ```
 ### Iniciar nosso servidor API 
 * Caso queira rodar o servidor e testar manualmente
