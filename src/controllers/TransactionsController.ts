@@ -42,7 +42,7 @@ class TransactionsController {
         }
 
         const newTransaction = transactionRepo.create(transactionData);
-        await transactionRepo.save(transactionData);
+        await transactionRepo.save(newTransaction);
 
         const responseData = {
             id: newTransaction.id,

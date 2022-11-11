@@ -35,10 +35,4 @@ export class People {
         onUpdate: 'CURRENT_TIMESTAMP(6)',
     })
     updatedAt: Date;
-
-    @OneToMany(() => Account, (account) => account.people)
-    accounts: Account[];
-
-    @OneToMany(() => Card, (card) => card.people)
-    cards: Card[];
 }

@@ -1,40 +1,41 @@
-import supertest from 'supertest';
+import { Response } from 'superagent';
+import request from 'supertest';
 import app from '../server';
 
-// exports.loginRoute = describe('Login Route', () => {
-//     let validLoginResponse, invalidLoginResponse;
+export const loginRoute = describe('[Route: Login]', () => {
+    let validLoginResponse: Response, invalidLoginResponse: Response;
 
-//     beforeAll(async () => {
-//         const validCredential = {
-//             document: '56967915576',
-//             password: '123456',
-//         };
+    beforeAll(async () => {
+        const validCredential = {
+            document: '56967915576',
+            password: '123456',
+        };
 
-//         const invalidCredential = {
-//             document: '0293314',
-//             password: '234234234',
-//         };
+        const invalidCredential = {
+            document: '0293314',
+            password: '234234234',
+        };
 
-//         validLoginResponse = await supertest(app)
-//             .post('/login')
-//             .send(validCredential);
+        validLoginResponse = await request(app)
+            .post('/login')
+            .send(validCredential);
 
-//         invalidLoginResponse = await supertest(app)
-//             .post('/login')
-//             .send(invalidCredential);
-//     });
+        invalidLoginResponse = await request(app)
+            .post('/login')
+            .send(invalidCredential);
+    });
 
-//     it('Endpoint /login => Should be able to Login', async () => {
-//         expect(validLoginResponse.statusCode).toEqual(200);
-//     });
+    it('Endpoint /login => Should be able to Login', async () => {
+        expect(validLoginResponse.statusCode).toEqual(200);
+    });
 
-//     it('Endpoint /login => Should not be able to Login', async () => {
-//         expect(invalidLoginResponse.statusCode).toEqual(401);
-//     });
+    it('Endpoint /login => Should not be able to Login due to invalid credentials', async () => {
+        expect(invalidLoginResponse.statusCode).toEqual(401);
+    });
 
-//     it('Endpoint /login => Should have Bearer Auth Token response body', async () => {
-//         expect(validLoginResponse.statusCode).toEqual(200);
-//         expect(validLoginResponse.body).toHaveProperty('token');
-//         expect(validLoginResponse.body.token).toContain('Bearer');
-//     });
-// });
+    it('Endpoint /login => Should have Bearer Auth Token response body', async () => {
+        expect(validLoginResponse.statusCode).toEqual(200);
+        expect(validLoginResponse.body).toHaveProperty('token');
+        expect(validLoginResponse.body.token).toContain('Bearer');
+    });
+});

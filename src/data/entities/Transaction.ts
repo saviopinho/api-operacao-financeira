@@ -38,8 +38,4 @@ export class Transaction {
         onUpdate: 'CURRENT_TIMESTAMP(6)',
     })
     updatedAt: Date;
-
-    @ManyToOne(() => Account, (account) => account.transactions)
-    @JoinColumn({ name: 'accountId', referencedColumnName: 'id' })
-    account: Account;
 }

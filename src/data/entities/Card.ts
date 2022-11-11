@@ -42,12 +42,4 @@ export class Card {
         onUpdate: 'CURRENT_TIMESTAMP(6)',
     })
     updatedAt: Date;
-
-    @ManyToOne(() => People, (people) => people.cards)
-    @JoinColumn({ name: 'document', referencedColumnName: 'document' })
-    people: People;
-
-    @ManyToOne(() => Account, (account) => account.cards)
-    @JoinColumn({ name: 'accountId', referencedColumnName: 'id' })
-    account: Account;
 }
