@@ -53,7 +53,7 @@ npm run start
 npm run test
 ```
 
-## ☕ Usando `<API Cubos>` e Observações
+## ☕ Observações
 
 * Caso o comando de executar as migrations nao funcione de primeira, fechar e abrir novamente o VSCode para recarregar os packages.
 * Usar a ferramenta de sua preferência para testar as rotas e os endpoints criados.
