@@ -74,5 +74,5 @@ npm run test
 
 ## ☕ Observações
 
-* Caso o comando de executar as migrations nao funcione de primeira, fechar e abrir novamente o VSCode para recarregar os packages.
-* Usar a ferramenta de sua preferência para testar as rotas e os endpoints criados.
+* Em caso de conflito de portas ao executar o comando docker compose, realizar todo o processo do início, porém alterando o .env para as portas que estarão disponíveis
+* Usar a ferramenta de sua preferência para testar as rotas e os endpoints criados
