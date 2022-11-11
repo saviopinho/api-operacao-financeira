@@ -38,6 +38,10 @@ git clone https://github.com/saviopinho/Node-API-Cubos-Typescript.git
 ```
 O arquivo .env já está preenchido com os dados necessários para o funcionamento padrão.
 ```
+### Acessar raiz do projeto
+```
+cd Node-API-Cubos-Typescript
+```
 
 ### Instalar Packages
 ```
