@@ -27,7 +27,7 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
 ## 🚀 Instalação
 
-Para instalar a o projeto da API, siga estas etapas:
+Para instalação e funcionamento, siga estas etapas:
 
 ### Clonar Projeto
 ```
