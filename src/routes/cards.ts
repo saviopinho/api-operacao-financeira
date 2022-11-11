@@ -1,6 +1,6 @@
-import authHandler from '../middleware/AuthenticationHandler';
+import authHandler from '../middleware/authenticationHandler';
+import paginateHandler from '../middleware/paginationHandler';
 import cardsController from '../controllers/CardsController';
-import paginateHandler from '../middleware/PaginationHandler';
 import { Router } from 'express';
 
 const router = Router();

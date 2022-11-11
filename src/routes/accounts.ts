@@ -1,8 +1,8 @@
 import transactionsController from '../controllers/TransactionsController';
 import cardsController from '../controllers/CardsController';
 import accounts from '../controllers/AccountsController';
-import authHandler from '../middleware/AuthenticationHandler';
-import paginatedResult from '../middleware/PaginationHandler';
+import authHandler from '../middleware/authenticationHandler';
+import paginatedResult from '../middleware/paginationHandler';
 
 import { Router } from 'express';
 

@@ -1,4 +1,4 @@
-import complianceHandler from '../middleware/ComplianceHandler';
+import complianceHandler from '../middleware/complianceHandler';
 import peopleController from '../controllers/PeopleController';
 import { Router } from 'express';
 

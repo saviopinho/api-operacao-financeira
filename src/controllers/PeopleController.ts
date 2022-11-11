@@ -3,7 +3,7 @@ import { ConflictError } from '../helper/ApiError';
 import { peopleRepo } from '../data/repositories/peopleRepository';
 import { v4 as uuid } from 'uuid';
 import bcrypt from 'bcrypt';
-import Utils from '../helper/Utils';
+import Utils from '../helper/utils';
 
 class PeopleController {
     async createOne(req: Request, res: Response, next: NextFunction) {

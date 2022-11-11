@@ -6,7 +6,7 @@ import {
     UnavailableServiceError,
     UnauthorizeError,
 } from '../helper/ApiError';
-import Utils from '../helper/Utils';
+import Utils from '../helper/utils';
 import axios from 'axios';
 
 class ComplianceHandler {

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { BadRequestError, UnauthorizeError } from '../helper/ApiError';
 import { transactionRepo } from '../data/repositories/transactionRepository';
-import Utils from '../helper/Utils';
+import Utils from '../helper/utils';
 import { v4 as uuid } from 'uuid';
 import { accountRepo } from '../data/repositories/accountRepository';
 
