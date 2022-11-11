@@ -6,7 +6,7 @@
 
 > ## **API Operação Financeira desenvolvido em: NodeJS, TypeScript, ExpressJS, PostgresSQL, TypeORM e Docker.**
 >
-> Sávio Pinho Nunes - saviopinhonunes@gmail.com - (85) 997191702.
+> Sávio Pinho Nunes - saviopinhonunes@gmail.com - +5585997191702.
 
 ## 💻 Pré-requisitos
 
