@@ -6,7 +6,16 @@
 
 > ## **API de Operações Financeiras desenvolvido em: NodeJS, TypeScript, ExpressJS, PostgresSQL, TypeORM e Docker.**
 >
-> Sávio Pinho Nunes - saviopinhonunes@gmail.com - +5585997191702.
+> Contato: Sávio Pinho Nunes - saviopinhonunes@gmail.com - +55 85 997191702.
+
+## Funcionalidades
+- Criar uma pessoa.
+- Autenticar uma pessoa.
+- Adicionar e listar cartões de uma conta.
+- Adicionar e listar contas da pessoa.
+- Realizar e listar transações em uma conta.
+- Consultar o saldo de uma conta.
+- Reverter uma transação.
 
 ## 💻 Pré-requisitos
 
