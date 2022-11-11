@@ -45,7 +45,7 @@ cd Node-API-Cubos-Typescript
 
 ### Instalar Packages
 ```
-npm run install
+npm install
 ```
 
 ### Criar e subir container PostgresSQL com Docker
