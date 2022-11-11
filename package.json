@@ -7,7 +7,7 @@
         "test": "jest --runInBand --detectOpenHandles --forceExit --verbose",
         "migration:generate": "npx typeorm-ts-node-commonjs -d ./src/data/data-source.ts migration:generate ./src/data/migrations/default",
         "migration:run": "typeorm-ts-node-commonjs -d ./src/data/data-source.ts migration:run",
-        "docker:compose": "docker compose down && docker compose up -d",
+        "docker:compose": "docker-compose down -v && docker compose up -d",
         "start": "ts-node index.ts",
         "dev": "nodemon --exec ts-node index.ts"
     },
