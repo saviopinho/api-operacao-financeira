@@ -4,7 +4,7 @@
 
 ![exemplo imagem](https://vagas.byintera.com/wp-content/uploads/2022/08/cubos_newLogo.png)
 
-> ## **RestAPI Sistema Bancário em NodeJS, TypeScript, ExpressJS, PostgresSQL,**
+> ## **API Operação Financeira desenvolvido em: NodeJS, TypeScript, ExpressJS, PostgresSQL,**
 >
 > ## **TypeORM e Docker.**
 >
