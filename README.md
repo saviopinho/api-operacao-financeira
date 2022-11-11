@@ -19,21 +19,42 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
 ## 🚀 Instalação
 
-Para instalar o <nome_do_projeto>, siga estas etapas:
+Para instalar a API, siga estas etapas:
 
+### Clonar Projeto
 ```
-git clone git@github.com:saviopinho/Node-API-Cubos-Typescript.git
+git clone https://github.com/saviopinho/Node-API-Cubos-Typescript.git
+```
 
+### Instalar Packages
+```
+npm run install
+```
+
+### Criar e subir container PostgresSQL com Docker
+```
+npm run docker:compose
+```
+
+### Criar arquivo de migrations do TypeORM
+```
+npm run migrate:generate
+```
+
+### Executar as migrations do TypeORM
+```
+npm run migrate:run
+```
+### Iniciar nosso servidor API 
+* Caso queira rodar o servidor e testar manualmente
+```
+npm run start
+```
+* Caso queria rodar os testes de integração
+```
+npm run test
 ```
 
 ## ☕ Usando `<API Cubos>`
 
-Para usar <nome_do_projeto>, siga estas etapas:
-
-```
-<exemplo_de_uso>
-```
-
-Adicione comandos de execução e exemplos que você acha que os usuários acharão úteis. Fornece uma referência de opções para pontos de bônus!
-
-[⬆ Voltar ao topo](#nome-do-projeto) `<br>`
+* Usar a ferramenta de sua preferência para testar as rotas e os endpoints criados.

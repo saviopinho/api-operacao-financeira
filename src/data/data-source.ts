@@ -4,7 +4,7 @@ import { DataSource } from 'typeorm';
 
 const dataSource = new DataSource({
     type: 'postgres',
-    host: process.env.POSTGRES_HOST,
+    host: 'localhost',
     port: process.env.DB_PORT as number | undefined,
     username: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
