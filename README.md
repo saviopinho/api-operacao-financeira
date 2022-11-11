@@ -24,6 +24,9 @@ Para instalar a o projeto da API, siga estas etapas:
 git clone https://github.com/saviopinho/Node-API-Cubos-Typescript.git
 ```
 
+## Configurar Variáveis de Ambiete
+* O arquivo .env já está preenchido com os dados necessários para o funcionamento padrão.
+
 ### Instalar Packages
 ```
 npm run install
@@ -55,6 +58,5 @@ npm run test
 
 ## ☕ Observações
 
-* O arquivo .env já está preenchido com os dados necessários para o funcionamento padrão.
 * Caso o comando de executar as migrations nao funcione de primeira, fechar e abrir novamente o VSCode para recarregar os packages.
 * Usar a ferramenta de sua preferência para testar as rotas e os endpoints criados.
