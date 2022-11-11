@@ -25,7 +25,9 @@ git clone https://github.com/saviopinho/Node-API-Cubos-Typescript.git
 ```
 
 ## Configurar Variáveis de Ambiete
-```O arquivo .env já está preenchido com os dados necessários para o funcionamento padrão.```
+```
+O arquivo .env já está preenchido com os dados necessários para o funcionamento padrão.
+```
 
 ### Instalar Packages
 ```
