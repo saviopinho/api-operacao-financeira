@@ -18,6 +18,20 @@
 - Realizar transferência interna entre contas.
 - Reverter uma transação.
 
+## ✅ Endpoints
+* POST /people
+* POST /login
+* POST /accounts
+* GET /accounts
+* POST /accounts/:accountId/cards
+* GET /accounts/:accountId/cards
+* GET /cards
+* POST /accounts/:accountId/transactions
+* POST /accounts/:accountId/transactions/internal
+* GET /accounts/:accountId/transactions
+* GET /accounts/:accountId/balance
+* POST /accounts/:accountId/transactions/:transactionId/revert
+
 ## 💻 Pré-requisitos
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
