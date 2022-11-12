@@ -25,15 +25,15 @@ export const loginRoute = describe('[Route: Login]', () => {
             .send(invalidCredential);
     });
 
-    it('Endpoint /login => Should be able to Login', async () => {
+    it('Endpoint POST /login => Should be able to Login', async () => {
         expect(validLoginResponse.statusCode).toEqual(200);
     });
 
-    it('Endpoint /login => Should not be able to Login due to invalid credentials', async () => {
+    it('Endpoint POST /login => Should not be able to Login due to invalid credentials', async () => {
         expect(invalidLoginResponse.statusCode).toEqual(401);
     });
 
-    it('Endpoint /login => Should have Bearer Auth Token response body', async () => {
+    it('Endpoint POST /login => Should have Bearer Auth Token response body', async () => {
         expect(validLoginResponse.statusCode).toEqual(200);
         expect(validLoginResponse.body).toHaveProperty('token');
         expect(validLoginResponse.body.token).toContain('Bearer');
