@@ -126,7 +126,16 @@ class TransactionsController {
         await transactionRepo.save(newSenderTransaction);
         await transactionRepo.save(newReceiverTransaction);
 
-        res.status(201).send(newReceiverTransaction);
+        const transfeData = {
+            id: newReceiverTransaction.id,
+            value: newReceiverTransaction.value,
+            description: newReceiverTransaction.description,
+            accountId: newReceiverTransaction.accountId,
+            createdAt: newReceiverTransaction.createdAt,
+            updatedAt: newReceiverTransaction.updatedAt,
+        };
+
+        res.status(201).send(transfeData);
     }
 
     async execRevert(req: Request, res: Response, next: NextFunction) {
