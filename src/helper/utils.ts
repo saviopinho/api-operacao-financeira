@@ -3,7 +3,7 @@ class Utils {
         return value.replace(/\D/g, '');
     };
 
-    static getBalance(list: any) {
+    static getBalance(list: []) {
         return list.reduce(
             (sum: number, { value }: { value: number }) =>
                 Number(sum) + Number(value),

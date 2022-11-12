@@ -40,8 +40,8 @@ class ComplianceHandler {
 
         const authCode = await axios
             .post(authCodeUrl, authReqBody)
-            .then((response: any) => response.data.data.authCode)
-            .catch((error: any) => error.response);
+            .then((response) => response.data.data.authCode)
+            .catch((error) => error.response);
 
         if (authCode.status == 503) {
             throw new UnauthorizeError('Invalid Compliance Credentials');
@@ -49,8 +49,8 @@ class ComplianceHandler {
 
         const accessToken = await axios
             .post(authTokenUrl, { authCode })
-            .then((response: any) => response.data.data.accessToken)
-            .catch((error: any) => error.response);
+            .then((response) => response.data.data.accessToken)
+            .catch((error) => error.response);
 
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
@@ -73,8 +73,8 @@ class ComplianceHandler {
 
         const response = await axios
             .post(documentUrl, data, config)
-            .then((response: any) => response.data)
-            .catch((error: any) => error.response);
+            .then((response) => response.data)
+            .catch((error) => error.response);
 
         const { error } = response.data;
 

@@ -31,7 +31,7 @@ class CardsController {
             const { document } = req.body;
             const foundCards = await cardRepo.find({ where: { document } });
 
-            const responseData = foundCards.map((el) => {
+            const responseData = foundCards.map((el: Card) => {
                 return {
                     id: el.id,
                     type: el.type,

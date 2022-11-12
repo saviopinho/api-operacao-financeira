@@ -4,6 +4,7 @@ import { transactionRepo } from '../data/repositories/transactionRepository';
 import Utils from '../helper/utils';
 import { v4 as uuid } from 'uuid';
 import { accountRepo } from '../data/repositories/accountRepository';
+import { Transaction } from '../data/entities/Transaction';
 
 class TransactionsController {
     async createOne(req: Request, res: Response, next: NextFunction) {
@@ -18,7 +19,7 @@ class TransactionsController {
             accountId,
         });
 
-        const balance = Utils.getBalance(transactionList);
+        const balance = Utils.getBalance(transactionList as []);
 
         if (Number(balance) + Number(value) < 0) {
             throw new UnauthorizeError(
@@ -62,7 +63,7 @@ class TransactionsController {
             where: { accountId },
         });
 
-        const responseData = transactionList.map((el: any) => {
+        const responseData = transactionList.map((el: Transaction) => {
             return {
                 id: el.id,
                 value: Number(el.value),
@@ -81,7 +82,7 @@ class TransactionsController {
     async fetchBalance(req: Request, res: Response, next: NextFunction) {
         const { accountId } = req.params;
         const transactionList = await transactionRepo.findBy({ accountId });
-        const balance = Utils.getBalance(transactionList);
+        const balance = Utils.getBalance(transactionList as []);
 
         return res
             .status(200)
@@ -100,7 +101,7 @@ class TransactionsController {
             accountId,
         });
 
-        const balance = Utils.getBalance(transactionList);
+        const balance = Utils.getBalance(transactionList as []);
 
         if (Number(balance) - Number(value) < 0) {
             throw new UnauthorizeError('Insufficient funds for transfer');
@@ -154,7 +155,7 @@ class TransactionsController {
             );
         }
 
-        const balance = Utils.getBalance(transactionList);
+        const balance = Utils.getBalance(transactionList as []);
         const reversedValue = -foundTransaction!.value;
 
         if (Number(balance) + Number(reversedValue) < 0) {
