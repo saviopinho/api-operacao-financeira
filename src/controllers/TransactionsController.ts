@@ -130,7 +130,6 @@ class TransactionsController {
             id: newReceiverTransaction.id,
             value: newReceiverTransaction.value,
             description: newReceiverTransaction.description,
-            accountId: newReceiverTransaction.accountId,
             createdAt: newReceiverTransaction.createdAt,
             updatedAt: newReceiverTransaction.updatedAt,
         };
