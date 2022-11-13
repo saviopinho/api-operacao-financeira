@@ -6,7 +6,6 @@
 
 > ## **Desenvolvido em: NodeJS, TypeScript, ExpressJS, PostgresSQL, TypeORM e Docker.**
 >
-> Contato: Sávio Pinho Nunes - saviopinhonunes@gmail.com - +55 85 997191702.
 
 ## ✅ Funcionalidades
 - Criar uma pessoa.
