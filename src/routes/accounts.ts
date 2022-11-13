@@ -33,7 +33,7 @@ const router = Router();
  *      409:
  *        description: Conflict Error
  *      500:
- *        description: Not Found**
+ *        description: Not Found*
  */
 router.post('/', authHandler.verifyToken, accounts.createOne);
 
@@ -52,7 +52,7 @@ router.post('/', authHandler.verifyToken, accounts.createOne);
  *            schema:
  *              $ref: '#/components/schemas/getAccountsResponse'
  *      500:
- *        description: Not Found**
+ *        description: Not Found*
  */
 router.get('/', authHandler.verifyToken, accounts.fetchAll);
 
@@ -65,7 +65,7 @@ router.get('/', authHandler.verifyToken, accounts.fetchAll);
  *        name: accountId
  *        required: true
  *        type: string
- *        description: Existing Account ID
+ *        description: Account ID
  *    description: Realizar a criação de um cartão em uma conta.
  *    security:
  *      - bearerAuth: []
@@ -89,7 +89,7 @@ router.get('/', authHandler.verifyToken, accounts.fetchAll);
  *      401:
  *        description: UnauthorizeError
  *      500:
- *        description: Not Found*
+ *        description: Not Found
  */
 router.post(
     '/:accountId/cards',
@@ -106,7 +106,7 @@ router.post(
  *        name: accountId
  *        required: true
  *        type: string
- *        description: Existing Account ID
+ *        description: Account ID
  *    description: Realizar a listagem de todos os cartões de uma conta.
  *    security:
  *      - bearerAuth: []
@@ -118,34 +118,187 @@ router.post(
  *            schema:
  *              $ref: '#/components/schemas/getAccountCardsResponse'
  *      500:
- *        description: Not Found*
+ *        description: Not Found
  */
 router.get(
     '/:accountId/cards',
     authHandler.verifyToken,
     cardsController.fetchAccountCards
 );
+
+/**
+ * @swagger
+ * /accounts/{accountId}/transactions:
+ *  post:
+ *    parameters:
+ *      - in: path
+ *        name: accountId
+ *        required: true
+ *        type: string
+ *        description: Account ID
+ *    description: Realizar a criação de uma transação em uma conta. Uma transação pode ser de débito ou crédito.
+ *    security:
+ *      - bearerAuth: []
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *              $ref: '#/components/schemas/postAccountTransactionRequest'
+ *    responses:
+ *      201:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/postAccountTransactionResponse'
+ *      401:
+ *        description: UnauthorizeError
+ *      500:
+ *        description: Not Found
+ */
 router.post(
     '/:accountId/transactions',
     authHandler.verifyToken,
     transactionsController.createOne
 );
+
+/**
+ * @swagger
+ * /accounts/{accountId}/transactions/internal:
+ *  post:
+ *    parameters:
+ *      - in: path
+ *        name: accountId
+ *        required: true
+ *        type: string
+ *        description: Account ID
+ *    description: Realizar a criação de transferência interna entre contas cadastradas na aplicação.
+ *    security:
+ *      - bearerAuth: []
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *              $ref: '#/components/schemas/postAccountTransferRequest'
+ *    responses:
+ *      201:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/postAccountTransferResponse'
+ *      400:
+ *        description: BadRequest Error
+ *      401:
+ *        description: UnauthorizeError
+ *      500:
+ *        description: Not Found
+ */
+router.post(
+    '/:accountId/transactions/internal',
+    authHandler.verifyToken,
+    transactionsController.execTransfer
+);
+
+/**
+ * @swagger
+ * /accounts/{accountId}/transactions:
+ *  get:
+ *    parameters:
+ *      - in: path
+ *        name: accountId
+ *        required: true
+ *        type: string
+ *        description: Account ID
+ *      - in: query
+ *        name: itemsPerPage
+ *        type: integer
+ *        description: Amount of items per page
+ *      - in: query
+ *        name: currentPage
+ *        type: integer
+ *        description: Current page
+ *    description: Listagem de todas as transações de uma conta, com paginação opcional via query parameters.
+ *    security:
+ *      - bearerAuth: []
+ *    responses:
+ *      200:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/getAccountTransactionResponse'
+ *      500:
+ *        description: Not Found
+ */
 router.get(
     '/:accountId/transactions',
     authHandler.verifyToken,
     transactionsController.fetchAll,
     paginatedResult.paginatedResult
 );
-router.post(
-    '/:accountId/transactions/internal',
-    authHandler.verifyToken,
-    transactionsController.execTransfer
-);
+
+/**
+ * @swagger
+ * /accounts/{accountId}/balance:
+ *  get:
+ *    parameters:
+ *      - in: path
+ *        name: accountId
+ *        required: true
+ *        type: string
+ *        description: Account ID
+ *    description: Retorna o saldo de uma conta.
+ *    security:
+ *      - bearerAuth: []
+ *    responses:
+ *      200:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/getBalanceResponse'
+ *      500:
+ *        description: Not Found
+ */
 router.get(
     '/:accountId/balance',
     authHandler.verifyToken,
     transactionsController.fetchBalance
 );
+
+/**
+ * @swagger
+ * /accounts/{accountId}/transactions/{transactionId}/revert:
+ *  post:
+ *    parameters:
+ *      - in: path
+ *        name: accountId
+ *        required: true
+ *        type: string
+ *        description: Account ID
+ *      - in: path
+ *        name: transactionId
+ *        required: true
+ *        type: string
+ *        description: Transaction ID*
+ *    description: Realizar a reversão de uma transação.
+ *    security:
+ *      - bearerAuth: []
+ *    responses:
+ *      201:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/postRevertResponse'
+ *      401:
+ *        description: UnauthorizeError
+ *      500:
+ *        description: Not Found
+ */
 router.post(
     '/:accountId/transactions/:transactionId/revert',
     authHandler.verifyToken,

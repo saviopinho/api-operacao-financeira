@@ -15,11 +15,11 @@ class AuthenticationHandler {
     verifyToken = async (req: Request, res: Response, next: NextFunction) => {
         const { authorization } = req.headers;
 
-        const token = authorization!.split(' ')[1];
-
-        if (!token) {
+        if (!authorization) {
             throw new ForbiddenError('A token is required for authentication');
         }
+
+        const token = authorization!.split(' ')[1];
 
         let document = '';
 

@@ -91,7 +91,7 @@ const options: swaggerJsdoc.Options = {
                     properties: {
                         document: {
                             type: 'string',
-                            description: 'User document number',
+                            description: 'User document',
                         },
                         password: {
                             type: 'string',
@@ -126,7 +126,7 @@ const options: swaggerJsdoc.Options = {
                         },
                         account: {
                             type: 'string',
-                            description: 'User document number',
+                            description: 'User document',
                         },
                     },
                     example: {
@@ -395,6 +395,234 @@ const options: swaggerJsdoc.Options = {
                         pagination: {
                             itemsPerPage: 2,
                             currentPage: 2,
+                        },
+                    },
+                },
+                postAccountTransactionRequest: {
+                    type: 'object',
+                    required: ['value', 'description'],
+                    properties: {
+                        value: {
+                            type: 'integer',
+                            description: 'Transaction value',
+                        },
+                        description: {
+                            type: 'string',
+                            description: 'Transaction description',
+                        },
+                    },
+                    example: {
+                        value: 100.0,
+                        description: 'Venda do cimento para Clodson',
+                    },
+                },
+                postAccountTransactionResponse: {
+                    type: 'object',
+                    required: [
+                        'id',
+                        'value',
+                        'description',
+                        'createdAt',
+                        'updatedAt',
+                    ],
+                    properties: {
+                        id: {
+                            type: 'string',
+                            description: 'Transaction ID',
+                        },
+                        value: {
+                            type: 'integer',
+                            description: 'Transaction value',
+                        },
+                        description: {
+                            type: 'string',
+                            description: 'Transaction description',
+                        },
+                        createdAt: {
+                            type: 'string',
+                            description: 'Creation time',
+                        },
+                        updatedAt: {
+                            type: 'string',
+                            description: 'Update time',
+                        },
+                    },
+                    example: {
+                        id: '05a0ab2d-5ece-45b6-b7d3-f3ecce2713d5',
+                        value: 100.0,
+                        description: 'Venda do cimento para Lucas',
+                        createdAt: '2022-08-01T14:30:41.203653',
+                        updatedAt: '2022-08-01T14:30:41.203653',
+                    },
+                },
+                postAccountTransferRequest: {
+                    type: 'object',
+                    required: ['receiverAccountId', 'value', 'description'],
+                    properties: {
+                        receiverAccountId: {
+                            type: 'string',
+                            description: 'Receiver account ID',
+                        },
+                        value: {
+                            type: 'integer',
+                            description: 'Transaction value',
+                        },
+                        description: {
+                            type: 'string',
+                            description: 'Transaction description',
+                        },
+                    },
+                    example: {
+                        receiverAccountId:
+                            '635adcf2-4173-45f2-8d8e-ed017dc9e6d6',
+                        value: 35.53,
+                        description: 'Pizza do FDS',
+                    },
+                },
+                postAccountTransferResponse: {
+                    type: 'object',
+                    required: [
+                        'id',
+                        'value',
+                        'description',
+                        'createdAt',
+                        'updatedAt',
+                    ],
+                    properties: {
+                        id: {
+                            type: 'string',
+                            description: 'Transaction ID',
+                        },
+                        value: {
+                            type: 'integer',
+                            description: 'Transaction value',
+                        },
+                        description: {
+                            type: 'string',
+                            description: 'Transaction description',
+                        },
+                        createdAt: {
+                            type: 'string',
+                            description: 'Creation time',
+                        },
+                        updatedAt: {
+                            type: 'string',
+                            description: 'Update time',
+                        },
+                    },
+                    example: {
+                        id: '05a0ab2d-5ece-45b6-b7d3-f3ecce2713d5',
+                        value: 35.53,
+                        description: 'Pizza do FDS',
+                        createdAt: '2022-08-01T14:30:41.203653',
+                        updatedAt: '2022-08-01T14:30:41.203653',
+                    },
+                },
+                getAccountTransactionResponse: {
+                    type: 'object',
+                    required: [
+                        'id',
+                        'value',
+                        'description',
+                        'createdAt',
+                        'updatedAt',
+                    ],
+                    properties: {
+                        id: {
+                            type: 'string',
+                            description: 'Transaction ID',
+                        },
+                        value: {
+                            type: 'integer',
+                            description: 'Transaction value',
+                        },
+                        description: {
+                            type: 'string',
+                            description: 'Transaction description',
+                        },
+                        createdAt: {
+                            type: 'string',
+                            description: 'Creation time',
+                        },
+                        updatedAt: {
+                            type: 'string',
+                            description: 'Update time',
+                        },
+                    },
+                    example: {
+                        transactions: [
+                            {
+                                id: '05a0ab2d-5ece-45b6-b7d3-f3ecce2713d5',
+                                value: 100.0,
+                                description: 'Venda do cimento para Lucas.',
+                                createdAt: '2022-08-01T14:30:41.203653',
+                                updatedAt: '2022-08-01T14:30:41.203653',
+                            },
+                            {
+                                id: '05a0ab2d-5ece-45b6-b7d3-f3ecce2713d5',
+                                value: 35.53,
+                                description: 'Pizza do FDS',
+                                createdAt: '2022-08-01T14:30:41.203653',
+                                updatedAt: '2022-08-01T14:30:41.203653',
+                            },
+                        ],
+                        pagination: {
+                            itemsPerPage: 5,
+                            currentPage: 1,
+                        },
+                    },
+                },
+                getBalanceResponse: {
+                    type: 'object',
+                    required: ['balance'],
+                    properties: {
+                        balance: {
+                            type: 'integer',
+                            description: 'Balance value',
+                        },
+                    },
+                    example: {
+                        balance: 100.0,
+                    },
+                },
+                postRevertResponse: {
+                    type: 'object',
+                    required: [
+                        'id',
+                        'value',
+                        'description',
+                        'createdAt',
+                        'updatedAt',
+                    ],
+                    properties: {
+                        id: {
+                            type: 'string',
+                            description: 'Transaction ID',
+                        },
+                        value: {
+                            type: 'integer',
+                            description: 'Transaction value',
+                        },
+                        description: {
+                            type: 'string',
+                            description: 'Transaction description',
+                        },
+                        createdAt: {
+                            type: 'string',
+                            description: 'Creation time',
+                        },
+                        updatedAt: {
+                            type: 'string',
+                            description: 'Update time',
+                        },
+                    },
+                    example: {
+                        transactions: {
+                            id: '092ec73f-d7c3-4afb-bac0-9c7e8eb33eae',
+                            value: 100.0,
+                            description: 'Estorno de cobrança indevida.',
+                            createdAt: '2022-08-01T14:30:41.203653',
+                            updatedAt: '2022-08-01T14:30:41.203653',
                         },
                     },
                 },
