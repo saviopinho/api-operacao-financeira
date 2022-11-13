@@ -4,16 +4,9 @@ const options: swaggerJsdoc.Options = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'API Operações Financeiras CUBOS',
+            title: 'API Operações Financeiras',
             version: '1.0.0',
-            customSiteTitle: 'API Operações Financeiras Cubos',
         },
-        servers: [
-            {
-                url: `http://localhost:${process.env.EXTERNAL_PORT}`,
-                description: 'Servidor Desenvolvimento',
-            },
-        ],
         components: {
             securitySchemes: {
                 bearerAuth: {
