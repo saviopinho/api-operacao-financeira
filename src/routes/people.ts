@@ -4,6 +4,33 @@ import { Router } from 'express';
 
 const router = Router();
 
+/**
+ * @swagger
+ * /people:
+ *  post:
+ *    description: Realizar a criação de uma pessoa.
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *              $ref: '#/components/schemas/postPeopleRequest'
+ *    responses:
+ *      201:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/postPeopleResponse'
+ *      400:
+ *        description: BadRequest Error
+ *      409:
+ *        description: Conflict Error
+ *      401:
+ *        description: UnauthorizeError
+ *      500:
+ *        description: Not Found*
+ */
 router.post(
     '/',
     complianceHandler.validateDocument,
