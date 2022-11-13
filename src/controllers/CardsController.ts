@@ -26,7 +26,7 @@ class CardsController {
         return res.status(200).send(responseData);
     }
 
-    async getPeopleCards(req: Request, res: Response, next: NextFunction) {
+    async postPeopleCards(req: Request, res: Response, next: NextFunction) {
         try {
             const { document } = req.body;
             const foundCards = await cardRepo.find({ where: { document } });
