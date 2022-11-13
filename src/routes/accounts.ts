@@ -33,7 +33,7 @@ const router = Router();
  *      409:
  *        description: Conflict Error
  *      500:
- *        description: Not Found*
+ *        description: Not Found
  */
 router.post('/', authHandler.verifyToken, accounts.createOne);
 
@@ -52,7 +52,7 @@ router.post('/', authHandler.verifyToken, accounts.createOne);
  *            schema:
  *              $ref: '#/components/schemas/getAccountsResponse'
  *      500:
- *        description: Not Found*
+ *        description: Not Found
  */
 router.get('/', authHandler.verifyToken, accounts.fetchAll);
 
@@ -86,8 +86,6 @@ router.get('/', authHandler.verifyToken, accounts.fetchAll);
  *        description: BadRequest Error
  *      409:
  *        description: Conflict Error
- *      401:
- *        description: UnauthorizeError
  *      500:
  *        description: Not Found
  */
@@ -152,6 +150,8 @@ router.get(
  *          application/json:
  *            schema:
  *              $ref: '#/components/schemas/postAccountTransactionResponse'
+ *      400:
+ *        description: BadRequest Error
  *      401:
  *        description: UnauthorizeError
  *      500:

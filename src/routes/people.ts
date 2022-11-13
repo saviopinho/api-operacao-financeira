@@ -22,12 +22,8 @@ const router = Router();
  *          application/json:
  *            schema:
  *              $ref: '#/components/schemas/postPeopleResponse'
- *      400:
- *        description: BadRequest Error
  *      409:
  *        description: Conflict Error
- *      401:
- *        description: UnauthorizeError
  *      500:
  *        description: Not Found*
  */
