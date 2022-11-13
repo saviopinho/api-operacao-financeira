@@ -32,6 +32,9 @@
 * GET /accounts/:accountId/balance
 * POST /accounts/:accountId/transactions/:transactionId/revert
 
+## ✅ Extras
+* Documentação Swagger adicionada para realização de testes e validação. Por padrão o projeto estará disponível na porta 3001 em http://localhost:3001/docs
+
 ## 💻 Pré-requisitos
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
